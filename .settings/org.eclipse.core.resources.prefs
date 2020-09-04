@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//src/uy/com/st/integration/client/ws/axis/WsGeneral.java=UTF-8
+encoding//src/uy/com/st/integration/client/ws/axis/WsGeneralService.java=UTF-8
+encoding//src/uy/com/st/integration/client/ws/axis/WsGeneralServiceLocator.java=UTF-8
+encoding//src/uy/com/st/integration/client/ws/axis/WsGeneralSoapBindingStub.java=UTF-8
