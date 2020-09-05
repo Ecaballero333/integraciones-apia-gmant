@@ -1,19 +1,33 @@
 package uy.com.st.integration.server.ws;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import uy.com.st.integration.common.logs.IntegracionesLogger;
 import uy.com.st.integration.server.factory.IMantenimientoOperaciones;
 import uy.com.st.integration.server.factory.ProcesadorOperaciones;
 
 public class ProcesadorWs {
 	
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private IMantenimientoOperaciones mantenimientoOperaciones;
 	
-	public ProcesadorWs(IMantenimientoOperaciones unMantenimientoOperaciones) {
+	public ProcesadorWs(IMantenimientoOperaciones unMantenimientoOperaciones) throws IOException {
+		IntegracionesLogger.setup();
 		this.mantenimientoOperaciones = unMantenimientoOperaciones;
+		LOGGER.log(Level.INFO, "Constructor ProcesadorWs");
 	}
 	
 	public String procesar(String solicitudJson) {
-		ProcesadorOperaciones creadorOperacionesLogic = new ProcesadorOperaciones(solicitudJson, mantenimientoOperaciones);
-		return creadorOperacionesLogic.ejecutarOperacion();
+		String respuesta = "";
+		try {
+			ProcesadorOperaciones creadorOperacionesLogic = new ProcesadorOperaciones(solicitudJson, mantenimientoOperaciones);
+			respuesta = creadorOperacionesLogic.ejecutarOperacion();
+		}catch(Exception e) {
+			LOGGER.log(Level.SEVERE, IntegracionesLogger.getStackTrace(e));
+		}
+		return respuesta;
 	}
 	
 }
