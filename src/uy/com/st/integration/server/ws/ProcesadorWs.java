@@ -13,20 +13,24 @@ public class ProcesadorWs {
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private IMantenimientoOperaciones mantenimientoOperaciones;
 	
-	public ProcesadorWs(IMantenimientoOperaciones unMantenimientoOperaciones) throws IOException {
-		IntegracionesLogger.setup();
+	public ProcesadorWs(IMantenimientoOperaciones unMantenimientoOperaciones) throws IOException {		
 		this.mantenimientoOperaciones = unMantenimientoOperaciones;
-		LOGGER.log(Level.INFO, "Constructor ProcesadorWs");
+		IntegracionesLogger.setup();
 	}
 	
 	public String procesar(String solicitudJson) {
 		String respuesta = "";
+		LOGGER.log(Level.INFO, "SolicitudJson recibida: " + solicitudJson);
 		try {
-			ProcesadorOperaciones creadorOperacionesLogic = new ProcesadorOperaciones(solicitudJson, mantenimientoOperaciones);
+			ProcesadorOperaciones creadorOperacionesLogic = new ProcesadorOperaciones(solicitudJson, mantenimientoOperaciones);			
 			respuesta = creadorOperacionesLogic.ejecutarOperacion();
 		}catch(Exception e) {
+			LOGGER.log(Level.SEVERE, e.getMessage());
 			LOGGER.log(Level.SEVERE, IntegracionesLogger.getStackTrace(e));
+		}finally {
+			LOGGER.log(Level.INFO, "Fin Solicitud " + IntegracionesLogger.getSeparador());
 		}
+		LOGGER.log(Level.INFO, "respuesta: " + respuesta);
 		return respuesta;
 	}
 	
