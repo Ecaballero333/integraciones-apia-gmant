@@ -15,7 +15,7 @@ public class IntegracionesLogger {
     static private FileHandler fileTxt;
     static private SimpleFormatter formatterTxt;
 
-    static public void setup() throws IOException {
+    public static void setup() throws IOException {
         Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
         Logger rootLogger = Logger.getLogger("");
@@ -25,16 +25,26 @@ public class IntegracionesLogger {
         }
         Level nivelLog = obtenerNivelLog();        
         logger.setLevel(nivelLog);
-        String pattern = "ddMMyyyy";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        fileTxt = new FileHandler("Integraciones-" +  simpleDateFormat.format(new Date()) + ".log");
+        String nombreArchivoLog = obtenerNomreArchivoLog();
+        fileTxt = new FileHandler(nombreArchivoLog, true);
 
         formatterTxt = new SimpleFormatter();
         fileTxt.setFormatter(formatterTxt);
         logger.addHandler(fileTxt);
     }
     
-    private static Level obtenerNivelLog() {
+    public static void liberarArchivoLog() {
+    	fileTxt.flush();
+    	fileTxt.close();
+    }
+    
+    private static String obtenerNomreArchivoLog() {
+    	String pattern = "ddMMyyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        return "Integraciones-" +  simpleDateFormat.format(new Date()) + ".log";
+	}
+
+	private static Level obtenerNivelLog() {
 		return Level.INFO;
 	}
 

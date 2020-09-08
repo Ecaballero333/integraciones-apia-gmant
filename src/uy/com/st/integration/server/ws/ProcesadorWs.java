@@ -24,13 +24,13 @@ public class ProcesadorWs {
 		try {
 			ProcesadorOperaciones creadorOperacionesLogic = new ProcesadorOperaciones(solicitudJson, mantenimientoOperaciones);			
 			respuesta = creadorOperacionesLogic.ejecutarOperacion();
+			LOGGER.log(Level.INFO, "respuesta: " + respuesta);
 		}catch(Exception e) {
-			LOGGER.log(Level.SEVERE, e.getMessage());
 			LOGGER.log(Level.SEVERE, IntegracionesLogger.getStackTrace(e));
 		}finally {
 			LOGGER.log(Level.INFO, "Fin Solicitud " + IntegracionesLogger.getSeparador());
+			IntegracionesLogger.liberarArchivoLog();
 		}
-		LOGGER.log(Level.INFO, "respuesta: " + respuesta);
 		return respuesta;
 	}
 	

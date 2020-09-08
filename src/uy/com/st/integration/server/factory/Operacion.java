@@ -1,6 +1,8 @@
 package uy.com.st.integration.server.factory;
 
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import uy.com.st.integration.common.utils.JsonUtil;
 import uy.com.st.integration.common.vo.Respuesta;
@@ -10,6 +12,7 @@ public abstract class Operacion {
 	protected String nombreOperacion;
 	protected Solicitud solicitud;
 	private Respuesta respuesta;
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	public Operacion() {
 		this.setNombreOperacion();
@@ -42,8 +45,13 @@ public abstract class Operacion {
 	private void cargarRespuesta() {
 		this.respuesta.setTimeStampSolicitud(this.solicitud.getTimeStamp());
 		this.respuesta.setUuidSolicitud(this.solicitud.getUuid());
-		this.respuesta.setDatos(this.obtenerDatosRespuesta());
+		String datos = this.obtenerDatosRespuesta();
+		if(datos == null || datos.isEmpty()) {
+			throw new NullPointerException("No se cargaron datos para la respuesta en la implementación de la operación");
+		}
+		this.respuesta.setDatos(datos);
 		this.respuesta.setErrores(this.obtenerErroresRespuesta());
+		LOGGER.log(Level.INFO, "Objeto Respuesta cargado en la Operacion " + respuesta.toString());
 	}
 
 	protected abstract String obtenerDatosRespuesta();		

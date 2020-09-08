@@ -1,5 +1,7 @@
 package uy.com.st.integration.common.vo;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
@@ -33,5 +35,27 @@ public class Respuesta {
 	}
 	public void setTimeStampSolicitud(long timeStampSolicitud) {
 		this.timeStampSolicitud = timeStampSolicitud;
+	}
+	@Override
+	public String toString() {
+		final int maxLen = 10;
+		return "Respuesta [datos=" + datos + ", errores="
+				+ (errores != null ? toString(errores.entrySet(), maxLen) : null) + ", uuidSolicitud=" + uuidSolicitud
+				+ ", timeStampSolicitud=" + timeStampSolicitud + "]";
+	}
+	
+	private String toString(Collection<?> collection, int maxLen) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("[");
+		int i = 0;
+		for (Iterator<?> iterator = collection.iterator(); iterator.hasNext() && i < maxLen; i++) {
+			if (i > 0)
+				builder.append(", ");
+			builder.append(iterator.next());
+		}
+		builder.append("]");
+		return builder.toString();
 	}	
+	
+	
 }
