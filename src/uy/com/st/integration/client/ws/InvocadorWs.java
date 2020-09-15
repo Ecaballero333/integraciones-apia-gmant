@@ -12,12 +12,12 @@ import uy.com.st.integration.client.ws.axis.*;
 public class InvocadorWs {
 
 	private String endpoint;
-	private String solicitud;
+	private String solicitudJson;
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	public InvocadorWs(String endpoint, String solicitud) {
 		this.endpoint = endpoint;
-		this.solicitud = solicitud;
+		this.solicitudJson = solicitud;
 	}
 	
 	public String invocarWs() throws MalformedURLException, ServiceException, RemoteException{
@@ -26,7 +26,7 @@ public class InvocadorWs {
 			WsGeneralServiceLocator localtor = new WsGeneralServiceLocator();
 			localtor.setWsGeneralEndpointAddress(endpoint);
 			WsGeneral ws = localtor.getWsGeneral();		
-			ws.ejecutarOperacion(this.solicitud);
+			ws.ejecutarOperacion(this.solicitudJson);
 		}catch(Exception e) {
 			LOGGER.log(Level.SEVERE, "Error al conectarse con el servicio web");
 			throw e;

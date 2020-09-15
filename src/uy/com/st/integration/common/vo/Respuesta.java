@@ -1,14 +1,11 @@
 package uy.com.st.integration.common.vo;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.UUID;
 
 public class Respuesta {
 	
 	private String datos;
-	private Map<String,String> errores;
+	private String errores;
 	private UUID uuidSolicitud;
 	private long timeStampSolicitud;
 	
@@ -18,10 +15,10 @@ public class Respuesta {
 	public void setDatos(String datos) {
 		this.datos = datos;
 	}
-	public Map<String, String> getErrores() {
+	public String getErrores() {
 		return errores;
 	}
-	public void setErrores(Map<String, String> errores) {
+	public void setErrores(String errores) {
 		this.errores = errores;
 	}
 	public UUID getUuidSolicitud() {
@@ -36,26 +33,11 @@ public class Respuesta {
 	public void setTimeStampSolicitud(long timeStampSolicitud) {
 		this.timeStampSolicitud = timeStampSolicitud;
 	}
+	
 	@Override
 	public String toString() {
-		final int maxLen = 10;
-		return "Respuesta [datos=" + datos + ", errores="
-				+ (errores != null ? toString(errores.entrySet(), maxLen) : null) + ", uuidSolicitud=" + uuidSolicitud
+		return "Respuesta [datos=" + datos + ", errores=" + errores + ", uuidSolicitud=" + uuidSolicitud
 				+ ", timeStampSolicitud=" + timeStampSolicitud + "]";
 	}
-	
-	private String toString(Collection<?> collection, int maxLen) {
-		StringBuilder builder = new StringBuilder();
-		builder.append("[");
-		int i = 0;
-		for (Iterator<?> iterator = collection.iterator(); iterator.hasNext() && i < maxLen; i++) {
-			if (i > 0)
-				builder.append(", ");
-			builder.append(iterator.next());
-		}
-		builder.append("]");
-		return builder.toString();
-	}	
-	
 	
 }

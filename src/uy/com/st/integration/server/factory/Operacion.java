@@ -1,12 +1,11 @@
 package uy.com.st.integration.server.factory;
 
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import uy.com.st.integration.common.utils.JsonUtil;
 import uy.com.st.integration.common.vo.Respuesta;
 import uy.com.st.integration.common.vo.Solicitud;
+import uy.com.st.integration.server.utils.ProcesadorWsUtils;
 
 public abstract class Operacion {
 	protected String nombreOperacion;
@@ -39,7 +38,8 @@ public abstract class Operacion {
 	
 	public String ejecutar() {
 		this.cargarRespuesta();
-		return this.obtenerRespuestaJson();
+		String respuestaJson = ProcesadorWsUtils.getRespuestaJson(respuesta);
+		return respuestaJson;
 	}
 
 	private void cargarRespuesta() {
@@ -56,11 +56,6 @@ public abstract class Operacion {
 
 	protected abstract String obtenerDatosRespuesta();		
 
-	protected abstract Map<String, String> obtenerErroresRespuesta();
-
-	private String obtenerRespuestaJson() {
-		JsonUtil<Respuesta> jl = new JsonUtil<Respuesta>();
-		return jl.convertirObjetoAJson(this.respuesta);	
-	}
+	protected abstract String obtenerErroresRespuesta();
 	
 }

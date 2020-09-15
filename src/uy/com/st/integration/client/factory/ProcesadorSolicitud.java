@@ -8,10 +8,11 @@ import java.util.logging.Logger;
 
 import javax.xml.rpc.ServiceException;
 
+import uy.com.st.integration.client.utils.ConsumoWsUtils;
 import uy.com.st.integration.client.ws.InvocadorWs;
 import uy.com.st.integration.common.logs.IntegracionesLogger;
-import uy.com.st.integration.common.utils.JsonUtil;
-import uy.com.st.integration.common.vo.*;
+import uy.com.st.integration.common.vo.Respuesta;
+import uy.com.st.integration.common.vo.Solicitud;
 
 public class ProcesadorSolicitud {
 
@@ -32,10 +33,10 @@ public class ProcesadorSolicitud {
 	public Respuesta invocarWs() throws MalformedURLException, RemoteException, ServiceException{
 		Respuesta respuesta = null;
 		try {
-			String solicitudJson = crearSolicitudJson();
+			String solicitudJson = ConsumoWsUtils.getSolicitudJson(solicitud);
 			InvocadorWs invocadorWs = new InvocadorWs(endpoint, solicitudJson);
 			String respuestaJson = invocadorWs.invocarWs();
-			respuesta = obtenerRespuestaJson(respuestaJson);
+			respuesta = ConsumoWsUtils.generarObjetoRespuestaDeRespuestaJson(respuestaJson);
 		}catch(Exception e) {
 			LOGGER.log(Level.SEVERE, IntegracionesLogger.getStackTrace(e));
 		}finally {
@@ -43,28 +44,6 @@ public class ProcesadorSolicitud {
 			IntegracionesLogger.liberarArchivoLog();
 		}
 		return respuesta;	
-	}
-	
-	private String crearSolicitudJson() {
-		try {
-			JsonUtil<Solicitud> jl = new JsonUtil<Solicitud>();
-			String solicitudJson = jl.convertirObjetoAJson(this.solicitud);	
-			LOGGER.log(Level.INFO, "Solicitud Json: " + solicitudJson);
-			return solicitudJson;
-		} catch (Exception e) {
-			LOGGER.log(Level.SEVERE, "No se pudo convertir Objeto Solicitud a SolicitudJSON");
-			throw e;
-		}
-	}
-	
-	private static Respuesta obtenerRespuestaJson(String respuestaJson) {
-		try {
-			JsonUtil<Respuesta> jl = new JsonUtil<Respuesta>();
-			return (Respuesta) jl.convertirJsonAObjeto(respuestaJson, Respuesta.class);	
-		} catch (Exception e) {
-			LOGGER.log(Level.SEVERE, "No se pudo convertir Json a objeto Respuesta");
-			throw e;
-		}
 	}
 
 }

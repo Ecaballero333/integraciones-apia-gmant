@@ -3,8 +3,8 @@ package uy.com.st.integration.server.factory;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import uy.com.st.integration.common.utils.JsonUtil;
 import uy.com.st.integration.common.vo.Solicitud;
+import uy.com.st.integration.server.utils.ProcesadorWsUtils;
 
 public class ProcesadorOperaciones {
 	
@@ -18,13 +18,14 @@ public class ProcesadorOperaciones {
 	}	
 
 	public String ejecutarOperacion() {
-		Solicitud solicitud = obtenerSolicitud(this.solicitudJson);		
+		Solicitud solicitud = ProcesadorWsUtils.generarObjetoSolicitudDeSolicitudJson(this.solicitudJson);		
 		Operacion operacion = obtenerOperacion(solicitud.getOperacion());
 		operacion.setSolcitud(solicitud);		
 		return operacion.ejecutar();
 	}
 	
 	private Operacion obtenerOperacion(String nombreOperacion) {
+		LOGGER.log(Level.INFO, "nombreOperacion: " + nombreOperacion);
 		if(nombreOperacion == null || nombreOperacion.isEmpty()) {
 			throw new NullPointerException("No se recibió nombre de operación");
 		}
@@ -33,19 +34,6 @@ public class ProcesadorOperaciones {
 			throw new NullPointerException("No se pudo obtener la operación con nombre: " + nombreOperacion);
 		}
 		return operacion;
-	}
-	
-	private static Solicitud obtenerSolicitud(String solicitudJson) {
-		Solicitud solicitud = null;
-		try {
-			JsonUtil<Solicitud> jl = new JsonUtil<Solicitud>();
-			solicitud = jl.convertirJsonAObjeto(solicitudJson, Solicitud.class);
-			LOGGER.log(Level.INFO, "Se obtiene Objeto solicitud " + solicitud.toString());
-		} catch (Exception e) {
-			LOGGER.log(Level.SEVERE, "No se pudo convertir SoicitudJSON a Objeto Solicitud");
-			throw e;
-		}
-		return solicitud;
 	}
 	
 }
