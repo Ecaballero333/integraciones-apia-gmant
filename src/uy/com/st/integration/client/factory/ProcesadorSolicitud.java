@@ -20,8 +20,8 @@ public class ProcesadorSolicitud {
 	private Solicitud solicitud;
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
-	public ProcesadorSolicitud(String endpoint, Solicitud solicitud) throws IOException {
-		IntegracionesLogger.setup();
+	public ProcesadorSolicitud(String endpoint, Solicitud solicitud, String nivelLog) throws IOException {
+		IntegracionesLogger.setup(nivelLog);
 		LOGGER.log(Level.INFO, "Endpoint servicio web invocado " + endpoint);
 		if(solicitud==null)
 			throw new NullPointerException("Solicitud recibida null");
@@ -45,5 +45,4 @@ public class ProcesadorSolicitud {
 		}
 		return respuesta;	
 	}
-
 }

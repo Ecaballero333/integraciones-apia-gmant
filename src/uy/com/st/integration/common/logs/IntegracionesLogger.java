@@ -15,16 +15,16 @@ public class IntegracionesLogger {
     static private FileHandler fileTxt;
     static private SimpleFormatter formatterTxt;
 
-    public static void setup() throws IOException {
+    public static void setup(String nivelLog) throws IOException {
         Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
         Logger rootLogger = Logger.getLogger("");
         Handler[] handlers = rootLogger.getHandlers();
         if (handlers.length > 0 && handlers[0] instanceof ConsoleHandler) {
             rootLogger.removeHandler(handlers[0]);
-        }
-        Level nivelLog = obtenerNivelLog();        
-        logger.setLevel(nivelLog);
+        }      
+        Level nivel = obtenerNivelLog(nivelLog);
+        logger.setLevel(nivel);
         String nombreArchivoLog = obtenerNomreArchivoLog();
         fileTxt = new FileHandler(nombreArchivoLog, true);
 
@@ -36,6 +36,40 @@ public class IntegracionesLogger {
     public static void liberarArchivoLog() {
     	fileTxt.flush();
     	fileTxt.close();
+    }
+    
+    private static Level obtenerNivelLog(String nivelLog) {
+    	Level nivel = Level.INFO;
+    	switch (nivelLog) {
+		case "ALL":
+			nivel = Level.ALL;
+			break;
+		case "CONFIG":
+			nivel = Level.CONFIG;
+			break;
+		case "FINE":
+			nivel = Level.FINE;
+			break;
+		case "FINER":
+			nivel = Level.FINER;
+			break;
+		case "FINEST":
+			nivel = Level.FINEST;
+			break;
+		case "INFO":
+			nivel = Level.INFO;
+			break;
+		case "OFF":
+			nivel = Level.OFF;
+			break;
+		case "SEVERE":
+			nivel = Level.SEVERE;
+			break;
+		case "WARNING":
+			nivel = Level.WARNING;
+			break;
+		}
+    	return nivel;
     }
     
     private static String obtenerNomreArchivoLog() {
