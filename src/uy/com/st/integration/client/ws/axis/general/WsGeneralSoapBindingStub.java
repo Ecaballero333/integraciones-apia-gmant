@@ -5,9 +5,9 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package uy.com.st.integration.client.ws.axis;
+package uy.com.st.integration.client.ws.axis.general;
 
-public class WsGeneralSoapBindingStub extends org.apache.axis.client.Stub implements uy.com.st.integration.client.ws.axis.WsGeneral {
+public class WsGeneralSoapBindingStub extends org.apache.axis.client.Stub implements uy.com.st.integration.client.ws.axis.general.WsGeneral {
     private java.util.Vector cachedSerClasses = new java.util.Vector();
     private java.util.Vector cachedSerQNames = new java.util.Vector();
     private java.util.Vector cachedSerFactories = new java.util.Vector();

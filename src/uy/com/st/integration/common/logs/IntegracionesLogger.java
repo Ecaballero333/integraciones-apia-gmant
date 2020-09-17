@@ -78,10 +78,6 @@ public class IntegracionesLogger {
         return "Integraciones-" +  simpleDateFormat.format(new Date()) + ".log";
 	}
 
-	private static Level obtenerNivelLog() {
-		return Level.INFO;
-	}
-
 	public static String getSeparador() {
         return "**********************************************************************";
     }

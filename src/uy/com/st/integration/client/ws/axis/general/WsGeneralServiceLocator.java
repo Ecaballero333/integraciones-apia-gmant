@@ -5,9 +5,9 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package uy.com.st.integration.client.ws.axis;
+package uy.com.st.integration.client.ws.axis.general;
 
-public class WsGeneralServiceLocator extends org.apache.axis.client.Service implements uy.com.st.integration.client.ws.axis.WsGeneralService {
+public class WsGeneralServiceLocator extends org.apache.axis.client.Service implements uy.com.st.integration.client.ws.axis.general.WsGeneralService {
 
     public WsGeneralServiceLocator() {
     }
@@ -39,7 +39,7 @@ public class WsGeneralServiceLocator extends org.apache.axis.client.Service impl
         WsGeneralWSDDServiceName = name;
     }
 
-    public uy.com.st.integration.client.ws.axis.WsGeneral getWsGeneral() throws javax.xml.rpc.ServiceException {
+    public uy.com.st.integration.client.ws.axis.general.WsGeneral getWsGeneral() throws javax.xml.rpc.ServiceException {
        java.net.URL endpoint;
         try {
             endpoint = new java.net.URL(WsGeneral_address);
@@ -50,9 +50,9 @@ public class WsGeneralServiceLocator extends org.apache.axis.client.Service impl
         return getWsGeneral(endpoint);
     }
 
-    public uy.com.st.integration.client.ws.axis.WsGeneral getWsGeneral(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
+    public uy.com.st.integration.client.ws.axis.general.WsGeneral getWsGeneral(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
         try {
-            uy.com.st.integration.client.ws.axis.WsGeneralSoapBindingStub _stub = new uy.com.st.integration.client.ws.axis.WsGeneralSoapBindingStub(portAddress, this);
+            uy.com.st.integration.client.ws.axis.general.WsGeneralSoapBindingStub _stub = new uy.com.st.integration.client.ws.axis.general.WsGeneralSoapBindingStub(portAddress, this);
             _stub.setPortName(getWsGeneralWSDDServiceName());
             return _stub;
         }
@@ -72,8 +72,8 @@ public class WsGeneralServiceLocator extends org.apache.axis.client.Service impl
      */
     public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
-            if (uy.com.st.integration.client.ws.axis.WsGeneral.class.isAssignableFrom(serviceEndpointInterface)) {
-                uy.com.st.integration.client.ws.axis.WsGeneralSoapBindingStub _stub = new uy.com.st.integration.client.ws.axis.WsGeneralSoapBindingStub(new java.net.URL(WsGeneral_address), this);
+            if (uy.com.st.integration.client.ws.axis.general.WsGeneral.class.isAssignableFrom(serviceEndpointInterface)) {
+                uy.com.st.integration.client.ws.axis.general.WsGeneralSoapBindingStub _stub = new uy.com.st.integration.client.ws.axis.general.WsGeneralSoapBindingStub(new java.net.URL(WsGeneral_address), this);
                 _stub.setPortName(getWsGeneralWSDDServiceName());
                 return _stub;
             }

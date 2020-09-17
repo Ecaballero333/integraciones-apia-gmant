@@ -1,8 +1,8 @@
-package uy.com.st.integration.client.ws.axis;
+package uy.com.st.integration.client.ws.axis.general;
 
-public class WsGeneralProxy implements uy.com.st.integration.client.ws.axis.WsGeneral {
+public class WsGeneralProxy implements uy.com.st.integration.client.ws.axis.general.WsGeneral {
   private String _endpoint = null;
-  private uy.com.st.integration.client.ws.axis.WsGeneral wsGeneral = null;
+  private uy.com.st.integration.client.ws.axis.general.WsGeneral wsGeneral = null;
   
   public WsGeneralProxy() {
     _initWsGeneralProxy();
@@ -15,7 +15,7 @@ public class WsGeneralProxy implements uy.com.st.integration.client.ws.axis.WsGe
   
   private void _initWsGeneralProxy() {
     try {
-      wsGeneral = (new uy.com.st.integration.client.ws.axis.WsGeneralServiceLocator()).getWsGeneral();
+      wsGeneral = (new uy.com.st.integration.client.ws.axis.general.WsGeneralServiceLocator()).getWsGeneral();
       if (wsGeneral != null) {
         if (_endpoint != null)
           ((javax.xml.rpc.Stub)wsGeneral)._setProperty("javax.xml.rpc.service.endpoint.address", _endpoint);
@@ -38,7 +38,7 @@ public class WsGeneralProxy implements uy.com.st.integration.client.ws.axis.WsGe
     
   }
   
-  public uy.com.st.integration.client.ws.axis.WsGeneral getWsGeneral() {
+  public uy.com.st.integration.client.ws.axis.general.WsGeneral getWsGeneral() {
     if (wsGeneral == null)
       _initWsGeneralProxy();
     return wsGeneral;

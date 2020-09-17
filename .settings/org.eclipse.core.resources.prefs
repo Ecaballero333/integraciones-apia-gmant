@@ -1,5 +1,13 @@
 eclipse.preferences.version=1
-encoding//src/uy/com/st/integration/client/ws/axis/WsGeneral.java=UTF-8
-encoding//src/uy/com/st/integration/client/ws/axis/WsGeneralService.java=UTF-8
-encoding//src/uy/com/st/integration/client/ws/axis/WsGeneralServiceLocator.java=UTF-8
-encoding//src/uy/com/st/integration/client/ws/axis/WsGeneralSoapBindingStub.java=UTF-8
+encoding//src/uy/com/st/integration/client/ws/axis/apia/AbstractApiaWSInputType.java=UTF-8
+encoding//src/uy/com/st/integration/client/ws/axis/apia/ApiaWSInputType.java=UTF-8
+encoding//src/uy/com/st/integration/client/ws/axis/apia/ApiaWSInterface.java=UTF-8
+encoding//src/uy/com/st/integration/client/ws/axis/apia/ApiaWSInterfaceService.java=UTF-8
+encoding//src/uy/com/st/integration/client/ws/axis/apia/ApiaWSInterfaceServiceLocator.java=UTF-8
+encoding//src/uy/com/st/integration/client/ws/axis/apia/ApiaWSws_operacionesSoapBindingStub.java=UTF-8
+encoding//src/uy/com/st/integration/client/ws/axis/apia/ExecResultType.java=UTF-8
+encoding//src/uy/com/st/integration/client/ws/axis/apia/Parameter.java=UTF-8
+encoding//src/uy/com/st/integration/client/ws/axis/general/WsGeneral.java=UTF-8
+encoding//src/uy/com/st/integration/client/ws/axis/general/WsGeneralService.java=UTF-8
+encoding//src/uy/com/st/integration/client/ws/axis/general/WsGeneralServiceLocator.java=UTF-8
+encoding//src/uy/com/st/integration/client/ws/axis/general/WsGeneralSoapBindingStub.java=UTF-8

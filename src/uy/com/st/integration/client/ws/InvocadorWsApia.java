@@ -7,15 +7,19 @@ import java.util.logging.Logger;
 
 import javax.xml.rpc.ServiceException;
 
-import uy.com.st.integration.client.ws.axis.*;
+import uy.com.st.integration.client.ws.axis.apia.ApiaWSInputType;
+import uy.com.st.integration.client.ws.axis.apia.ApiaWSInterface;
+import uy.com.st.integration.client.ws.axis.apia.ApiaWSInterfaceServiceLocator;
+import uy.com.st.integration.client.ws.axis.apia.ExecResultType;
+import uy.com.st.integration.client.ws.axis.general.*;
 
-public class InvocadorWs {
+public class InvocadorWsApia implements IInvocadorWs{
 
 	private String endpoint;
 	private String solicitudJson;
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
-	public InvocadorWs(String endpoint, String solicitud) {
+	public InvocadorWsApia(String endpoint, String solicitud) {
 		this.endpoint = endpoint;
 		this.solicitudJson = solicitud;
 	}
@@ -23,10 +27,11 @@ public class InvocadorWs {
 	public String invocarWs() throws MalformedURLException, ServiceException, RemoteException{
 		String respuesta = "";
 		try{
-			WsGeneralServiceLocator localtor = new WsGeneralServiceLocator();
-			localtor.setWsGeneralEndpointAddress(endpoint);
-			WsGeneral ws = localtor.getWsGeneral();		
-			ws.ejecutarOperacion(this.solicitudJson);
+			ApiaWSInterfaceServiceLocator localtor = new ApiaWSInterfaceServiceLocator();
+			localtor.setApiaWSws_operacionesEndpointAddress(endpoint);
+			ApiaWSInterface ws = localtor.getApiaWSws_operaciones();		
+			ExecResultType ert = ws.ws_operaciones(new ApiaWSInputType(this.solicitudJson));
+			respuesta = ert.getParameters().getRespuestaJson();
 		}catch(Exception e) {
 			LOGGER.log(Level.SEVERE, "Error al conectarse con el servicio web");
 			throw e;
