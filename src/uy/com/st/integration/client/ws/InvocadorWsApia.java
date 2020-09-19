@@ -11,7 +11,6 @@ import uy.com.st.integration.client.ws.axis.apia.ApiaWSInputType;
 import uy.com.st.integration.client.ws.axis.apia.ApiaWSInterface;
 import uy.com.st.integration.client.ws.axis.apia.ApiaWSInterfaceServiceLocator;
 import uy.com.st.integration.client.ws.axis.apia.ExecResultType;
-import uy.com.st.integration.client.ws.axis.general.*;
 
 public class InvocadorWsApia implements IInvocadorWs{
 

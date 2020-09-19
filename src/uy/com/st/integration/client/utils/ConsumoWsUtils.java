@@ -1,9 +1,9 @@
 package uy.com.st.integration.client.utils;
 
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import uy.com.st.integration.common.logs.IntegracionesLogger;
 import uy.com.st.integration.common.utils.JsonUtil;
 import uy.com.st.integration.common.vo.Respuesta;
 import uy.com.st.integration.common.vo.Solicitud;
@@ -12,7 +12,7 @@ public class ConsumoWsUtils {
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 		
-	public static String generarSolicitudJson(String nombreOperacion, String version, String parametros) throws IOException {
+	public static String generarSolicitudJson(String nombreOperacion, String version, String parametros){
 		LOGGER.log(Level.INFO, "Nombre operación de la Solicitud: " + nombreOperacion + 
 				"versión operación de la Solicitud: " + version + "parámetros de la Solicitud: " + parametros);
 		Solicitud solicitud = new Solicitud();
@@ -25,53 +25,59 @@ public class ConsumoWsUtils {
 	
 	public static String obtenerDatosDeRespuestaJson(String respuestaJson) {
 		LOGGER.log(Level.INFO, "respuestaJson: " + respuestaJson);
+		String datos = "";
 		try {
 			Respuesta respuesta = generarObjetoRespuestaDeRespuestaJson(respuestaJson);
-			String datos = respuesta.getDatos();
+			datos = respuesta.getDatos();
 			LOGGER.log(Level.INFO, "Datos obtenidos de la respuesta: " + datos);
-			return datos;
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "No se pudo obtener los datos de la respuestaJson");
-			throw e;
+			LOGGER.log(Level.SEVERE, IntegracionesLogger.getStackTrace(e));
+			datos ="ERROR_PROCESAMIENTO_RESPUESTA_JSON";
 		}
+		return datos;
 	}
 	
 	public static String obtenerErroresDeRespuestaJson(String respuestaJson) {
 		LOGGER.log(Level.INFO, "respuestaJson: " + respuestaJson);
+		String errores = "";
 		try {
 			Respuesta respuesta = generarObjetoRespuestaDeRespuestaJson(respuestaJson);
-			String errores = respuesta.getErrores();
+			errores = respuesta.getErrores();
 			LOGGER.log(Level.INFO, "Errores obtenidos de la respuesta: " + errores);
-			return errores;
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "No se pudo obtener los errores de la respuestaJson");
-			throw e;
+			LOGGER.log(Level.SEVERE, IntegracionesLogger.getStackTrace(e));
+			errores ="ERROR_PROCESAMIENTO_RESPUESTA_JSON";
 		}
+		return errores;
 	}
 	
 	public static String getSolicitudJson(Solicitud solicitud) {
 		LOGGER.log(Level.INFO, "Objeto solicitud: " + solicitud.toString());
+		String solicitudJson = null;
 		try {
 			JsonUtil<Solicitud> jl = new JsonUtil<Solicitud>();
-			String solicitudJson = jl.convertirObjetoAJson(solicitud);	
+			solicitudJson = jl.convertirObjetoAJson(solicitud);	
 			LOGGER.log(Level.INFO, "SolicitudJson generada: " + solicitudJson);
-			return solicitudJson;
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "No se pudo obtener la solicitudJson");
-			throw e;
+			LOGGER.log(Level.SEVERE, IntegracionesLogger.getStackTrace(e));
 		}
+		return solicitudJson;
 	}	
 	
 	public static Respuesta generarObjetoRespuestaDeRespuestaJson(String respuestaJson) {
 		LOGGER.log(Level.INFO, "respuestaJson recibida: " + respuestaJson);
+		Respuesta respuesta = null;
 		try {
 			JsonUtil<Respuesta> jl = new JsonUtil<Respuesta>();
-			Respuesta respuesta = jl.convertirJsonAObjeto(respuestaJson, Respuesta.class);
+			respuesta = jl.convertirJsonAObjeto(respuestaJson, Respuesta.class);
 			LOGGER.log(Level.INFO, "Objeto respuesta generado: " + respuesta.toString());
-			return respuesta;
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "No se pudo convertir la respuestaJson a Objeto Respuesta");
-			throw e;
+			LOGGER.log(Level.SEVERE, IntegracionesLogger.getStackTrace(e));
 		}
+		return respuesta;
 	}
 }

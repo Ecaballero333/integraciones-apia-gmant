@@ -18,7 +18,9 @@ public class ProcesadorOperaciones {
 	}	
 
 	public String ejecutarOperacion() {
-		Solicitud solicitud = ProcesadorWsUtils.generarObjetoSolicitudDeSolicitudJson(this.solicitudJson);		
+		Solicitud solicitud = ProcesadorWsUtils.generarObjetoSolicitudDeSolicitudJson(this.solicitudJson);	
+		if(solicitud == null) 
+			throw new NullPointerException("No se pudo convertir la SolicitudJSON a Objeto Solicitud");
 		Operacion operacion = obtenerOperacion(solicitud.getOperacion());
 		operacion.setSolcitud(solicitud);		
 		return operacion.ejecutar();
