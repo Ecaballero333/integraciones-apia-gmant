@@ -1,6 +1,5 @@
-package uy.com.st.integration.common.utils;
+package uy.com.st.integration.test.vo;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
