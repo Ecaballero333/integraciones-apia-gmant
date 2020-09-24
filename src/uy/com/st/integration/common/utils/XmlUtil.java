@@ -10,7 +10,7 @@ import javax.xml.bind.Unmarshaller;
 
 public class XmlUtil<T> {
 		
-    public String convertirObjeoAXML(T objetoXML) throws JAXBException {
+    public String convertirObjetoAXML(T objetoXML) throws JAXBException {
     	JAXBContext jaxbContext = JAXBContext.newInstance(objetoXML.getClass());
         Marshaller jaxbMarshaller = jaxbContext.createMarshaller();     
         jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);        

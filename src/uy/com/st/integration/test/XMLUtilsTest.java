@@ -58,7 +58,7 @@ class XMLUtilsTest {
 		elementos.add(e5);		
 		gmantElementos.setElementos(elementos);	
 
-		String resultado = xmlutil.convertirObjeoAXML(gmantElementos);
+		String resultado = xmlutil.convertirObjetoAXML(gmantElementos);
 		String resultadoEsperado = this.getXmlElementosEsperado();
 		assertEquals(resultadoEsperado, resultado);	
 	}
