@@ -13,9 +13,9 @@ public class ProcesadorWs {
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private IMantenimientoOperaciones mantenimientoOperaciones;
 	
-	public ProcesadorWs(IMantenimientoOperaciones unMantenimientoOperaciones, String nivelLog) throws IOException {		
+	public ProcesadorWs(IMantenimientoOperaciones unMantenimientoOperaciones, String nivelLog, String ubicacionLog) throws IOException {		
 		this.mantenimientoOperaciones = unMantenimientoOperaciones;
-		IntegracionesLogger.setup(nivelLog);
+		IntegracionesLogger.setup(nivelLog, ubicacionLog);
 	}
 	
 	public String procesar(String solicitudJson) {

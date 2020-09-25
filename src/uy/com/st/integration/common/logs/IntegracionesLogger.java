@@ -15,7 +15,7 @@ public class IntegracionesLogger {
     static private FileHandler fileTxt;
     static private SimpleFormatter formatterTxt;
 
-    public static void setup(String nivelLog) throws IOException {
+    public static void setup(String nivelLog, String ubicacionLog) throws IOException {
         Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
         Logger rootLogger = Logger.getLogger("");
@@ -25,8 +25,8 @@ public class IntegracionesLogger {
         }      
         Level nivel = obtenerNivelLog(nivelLog);
         logger.setLevel(nivel);
-        String nombreArchivoLog = obtenerNomreArchivoLog();
-        fileTxt = new FileHandler(nombreArchivoLog, true);
+        String rutaArchivoLog = getRutaArchivoLog(ubicacionLog);
+        fileTxt = new FileHandler(rutaArchivoLog, true);
 
         formatterTxt = new SimpleFormatter();
         fileTxt.setFormatter(formatterTxt);
@@ -72,10 +72,10 @@ public class IntegracionesLogger {
     	return nivel;
     }
     
-    private static String obtenerNomreArchivoLog() {
+    private static String getRutaArchivoLog(String ubicacionLog) {
     	String pattern = "ddMMyyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        return "Integraciones-" +  simpleDateFormat.format(new Date()) + ".log";
+        return ubicacionLog + "Integraciones-" +  simpleDateFormat.format(new Date()) + ".log";
 	}
 
 	public static String getSeparador() {

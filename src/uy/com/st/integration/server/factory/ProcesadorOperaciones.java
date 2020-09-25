@@ -21,19 +21,24 @@ public class ProcesadorOperaciones {
 		Solicitud solicitud = ProcesadorWsUtils.generarObjetoSolicitudDeSolicitudJson(this.solicitudJson);	
 		if(solicitud == null) 
 			throw new NullPointerException("No se pudo convertir la SolicitudJSON a Objeto Solicitud");
-		Operacion operacion = obtenerOperacion(solicitud.getOperacion());
+		Operacion operacion = obtenerOperacion(solicitud.getOperacion(), solicitud.getVersion());
 		operacion.setSolcitud(solicitud);		
 		return operacion.ejecutar();
 	}
 	
-	private Operacion obtenerOperacion(String nombreOperacion) {
+	private Operacion obtenerOperacion(String nombreOperacion, String versionOperacion) {
 		LOGGER.log(Level.INFO, "nombreOperacion: " + nombreOperacion);
+		LOGGER.log(Level.INFO, "versionOperacion: " + versionOperacion);
 		if(nombreOperacion == null || nombreOperacion.isEmpty()) {
 			throw new NullPointerException("No se recibió nombre de operación");
 		}
-		Operacion operacion = mantenimientoOperaciones.obtenerTodasLasOperaciones().get(nombreOperacion);
+		if(versionOperacion == null || versionOperacion.isEmpty()) {
+			throw new NullPointerException("No se recibió version de operación");
+		}
+		String operacionYVersion = nombreOperacion + ":" + versionOperacion;
+		Operacion operacion = mantenimientoOperaciones.obtenerTodasLasOperaciones().get(operacionYVersion);
 		if(operacion == null) {
-			throw new NullPointerException("No se pudo obtener la operación con nombre: " + nombreOperacion);
+			throw new NullPointerException("No se pudo obtener la operación con nombre:versión: " + operacionYVersion);
 		}
 		return operacion;
 	}
