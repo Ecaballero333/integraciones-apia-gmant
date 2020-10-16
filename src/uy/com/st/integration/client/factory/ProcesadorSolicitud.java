@@ -12,6 +12,7 @@ import uy.com.st.integration.client.utils.ConsumoWsUtils;
 import uy.com.st.integration.client.ws.IInvocadorWs;
 import uy.com.st.integration.client.ws.InvocadorWsApia;
 import uy.com.st.integration.client.ws.InvocadorWsGeneral;
+import uy.com.st.integration.client.ws.InvocadorWsGmant;
 import uy.com.st.integration.common.logs.IntegracionesLogger;
 import uy.com.st.integration.common.vo.Respuesta;
 import uy.com.st.integration.common.vo.Solicitud;
@@ -32,19 +33,11 @@ public class ProcesadorSolicitud {
 		this.solicitud = solicitud;
 	}
 	
-	/**
-	 * 
-	 * @param servicioPublicadoEnApia: true indica que el servicio que se va a invocar está publicado en Apia, false indica que el servicio que se va a invocar es el general
-	 * @return
-	 * @throws MalformedURLException
-	 * @throws RemoteException
-	 * @throws ServiceException
-	 */
-	public Respuesta invocarWs(boolean servicioPublicadoEnApia) throws MalformedURLException, RemoteException, ServiceException{
+	public Respuesta invocarWs(ServicioPublicadoEn servicioPublicadoEn) throws MalformedURLException, RemoteException, ServiceException{
 		Respuesta respuesta = null;
 		try {
 			String solicitudJson = ConsumoWsUtils.getSolicitudJson(solicitud);			
-			IInvocadorWs invocadorWs = this.instanciarInvocadorWs(servicioPublicadoEnApia, solicitudJson);
+			IInvocadorWs invocadorWs = this.instanciarInvocadorWs(servicioPublicadoEn, solicitudJson);
 			String respuestaJson = invocadorWs.invocarWs();
 			respuesta = ConsumoWsUtils.generarObjetoRespuestaDeRespuestaJson(respuestaJson);
 		}catch(Exception e) {
@@ -56,13 +49,32 @@ public class ProcesadorSolicitud {
 		return respuesta;	
 	}
 
-	private IInvocadorWs instanciarInvocadorWs(boolean servicioPublicadoEnApia, String solicitudJson) {
+	private IInvocadorWs instanciarInvocadorWs(ServicioPublicadoEn servicioPublicadoEn, String solicitudJson) {
 		IInvocadorWs invocadorWs = null;
-		if(servicioPublicadoEnApia) {
-			invocadorWs = new InvocadorWsApia(endpoint, solicitudJson);
+		switch (servicioPublicadoEn) {			
+			case APIA:
+				invocadorWs = new InvocadorWsApia(endpoint, solicitudJson);
+				break;
+			case GMANT:
+				invocadorWs = new InvocadorWsGmant(endpoint, solicitudJson);
+				break;
+			case OTRO:
+				invocadorWs = new InvocadorWsGeneral(endpoint, solicitudJson);
+				break;
+			default:
+				break;
+		}
+		if(servicioPublicadoEn.equals(ServicioPublicadoEn.APIA)) {
+			
 		} else {
-			invocadorWs = new InvocadorWsGeneral(endpoint, solicitudJson);			
+						
 		}
 		return invocadorWs;
 	}
+	
+	public enum ServicioPublicadoEn
+	{
+	    APIA, GMANT, OTRO
+	}
 }
+

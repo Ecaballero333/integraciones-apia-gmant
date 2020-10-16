@@ -75,7 +75,7 @@ public class IntegracionesLogger {
     private static String getRutaArchivoLog(String ubicacionLog) {
     	String pattern = "ddMMyyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        return ubicacionLog + "Integraciones-" +  simpleDateFormat.format(new Date()) + ".log";
+        return ubicacionLog + "/Integraciones-" +  simpleDateFormat.format(new Date()) + ".log";
 	}
 
 	public static String getSeparador() {

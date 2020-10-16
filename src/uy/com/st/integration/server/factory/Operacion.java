@@ -35,20 +35,9 @@ public abstract class Operacion {
 	public Respuesta getRespuesta() {
 		return this.respuesta;
 	}
-	
-	public String ejecutar() {
-		this.cargarRespuesta();
-		String respuestaJson = ProcesadorWsUtils.getRespuestaJson(respuesta);
-		return respuestaJson;
-	}
 
-	private void cargarRespuesta() {
-		this.respuesta.setTimeStampSolicitud(this.solicitud.getTimeStamp());
-		this.respuesta.setUuidSolicitud(this.solicitud.getUuid());
+	public void cargarRespuesta() {
 		String datos = this.obtenerDatosRespuesta();
-		if(datos == null || datos.isEmpty()) {
-			throw new NullPointerException("No se cargaron datos para la respuesta en la implementación de la operación");
-		}
 		this.respuesta.setDatos(datos);
 		this.respuesta.setErrores(this.obtenerErroresRespuesta());
 		LOGGER.log(Level.INFO, "Objeto Respuesta cargado en la Operacion " + respuesta.toString());

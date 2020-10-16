@@ -1,36 +1,46 @@
 package uy.com.st.integration.test.vo;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 
 @XmlRootElement(name="Elementos")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Elemento {
-	//https://www.javatpoint.com/jaxb-unmarshalling-example
+
+	@XmlElement(name = "ElementoCodigo")
 	private String codigo;
-	
+
+	@XmlElement(name = "ElementoDescripcion")
 	private String descripcion;
 
+	@XmlElement(name = "ElementoPadron")
 	private String padron;
 
+	@XmlElement(name = "ElementoDireccion")
 	private String direccion;
 
+	@XmlElement(name = "ElementoDepartamento")
 	private String departamento;
 
+	@XmlElement(name = "ElementoLocalidad")
 	private String localidad;
 
-	private String local;
+	@XmlElement(name = "ElementoNroLocal")
+	private String nroLocal;
 
+	@XmlElement(name = "ElementoMarca")
 	private String marca;
 
+	@XmlElement(name = "ElementoModelo")
 	private String modelo;
 
+	@XmlElement(name = "ElementoTipoCod")
 	private String tipoCod;
-	
+
+	@XmlElement(name = "ElementoNroSerie")
 	private String nroSerie;
 	
 	public Elemento() {}
 
-	@XmlElement(name = "ElementoCodigo")
 	public String getCodigo() {
 		return codigo;
 	}
@@ -39,7 +49,6 @@ public class Elemento {
 		this.codigo = codigo;
 	}
 
-	@XmlElement(name = "ElementoDescripcion")
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -48,7 +57,6 @@ public class Elemento {
 		this.descripcion = descripcion;
 	}
 
-	@XmlElement(name = "ElementoPadron")
 	public String getPadron() {
 		return padron;
 	}
@@ -57,7 +65,6 @@ public class Elemento {
 		this.padron = padron;
 	}
 
-	@XmlElement(name = "ElementoDireccion")
 	public String getDireccion() {
 		return direccion;
 	}
@@ -65,7 +72,6 @@ public class Elemento {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	@XmlElement(name = "ElementoDepartamento")
 
 	public String getDepartamento() {
 		return departamento;
@@ -75,7 +81,6 @@ public class Elemento {
 		this.departamento = departamento;
 	}
 
-	@XmlElement(name = "ElementoLocalidad")
 	public String getLocalidad() {
 		return localidad;
 	}
@@ -84,16 +89,14 @@ public class Elemento {
 		this.localidad = localidad;
 	}
 
-	@XmlElement(name = "ElementoNroLocal")
-	public String getLocal() {
-		return local;
+	public String getNroLocal() {
+		return nroLocal;
 	}
 
-	public void setLocal(String local) {
-		this.local = local;
+	public void setNroLocal(String nroLocal) {
+		this.nroLocal = nroLocal;
 	}
 
-	@XmlElement(name = "ElementoMarca")
 	public String getMarca() {
 		return marca;
 	}
@@ -102,7 +105,6 @@ public class Elemento {
 		this.marca = marca;
 	}
 
-	@XmlElement(name = "ElementoModelo")
 	public String getModelo() {
 		return modelo;
 	}
@@ -111,7 +113,6 @@ public class Elemento {
 		this.modelo = modelo;
 	}
 
-	@XmlElement(name = "ElementoTipoCod")
 	public String getTipoCod() {
 		return tipoCod;
 	}
@@ -120,7 +121,6 @@ public class Elemento {
 		this.tipoCod = tipoCod;
 	}
 
-	@XmlElement(name = "ElementoNroSerie")
 	public String getNroSerie() {
 		return nroSerie;
 	}
@@ -133,7 +133,7 @@ public class Elemento {
 	public String toString() {
 		return "Elemento [codigo=" + codigo + ", descripcion=" + descripcion + ", padron=" + padron
 				+ ", direccion=" + direccion + ", departamento=" + departamento + ", localidad=" + localidad
-				+ ", local=" + local + ", marca=" + marca + ", modelo=" + modelo + ", tipoCod=" + tipoCod
+				+ ", nroLocal=" + nroLocal + ", marca=" + marca + ", modelo=" + modelo + ", tipoCod=" + tipoCod
 				+ ", nroSerie=" + nroSerie + "]";
 	}
 	

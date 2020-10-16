@@ -19,19 +19,19 @@ public class ProcesadorWs {
 	}
 	
 	public String procesar(String solicitudJson) {
-		String respuesta = "";
+		String respuestaJson = "Sin respuesta";
 		LOGGER.log(Level.INFO, "SolicitudJson recibida: " + solicitudJson);
 		try {
 			ProcesadorOperaciones creadorOperacionesLogic = new ProcesadorOperaciones(solicitudJson, mantenimientoOperaciones);			
-			respuesta = creadorOperacionesLogic.ejecutarOperacion();
-			LOGGER.log(Level.INFO, "respuesta: " + respuesta);
+			respuestaJson = creadorOperacionesLogic.ejecutarOperacion();
+			LOGGER.log(Level.INFO, "respuestaJson: " + respuestaJson);
 		}catch(Exception e) {
 			LOGGER.log(Level.SEVERE, IntegracionesLogger.getStackTrace(e));
 		}finally {
 			LOGGER.log(Level.INFO, "Fin Solicitud " + IntegracionesLogger.getSeparador());
 			IntegracionesLogger.liberarArchivoLog();
 		}
-		return respuesta;
+		return respuestaJson;
 	}
 	
 }
